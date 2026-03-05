@@ -1,0 +1,41 @@
+# Maven Build Artifacts
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Maven Wrapper (Do NOT ignore the jar itself)
+!/.mvn/wrapper/maven-wrapper.jar
+
+# Compiled Java classes
+*.class
+
+# Log files
+*.log
+logs/
+
+# IntelliJ IDEA Specific
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.shelf/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Spring Boot - Configuration & Secrets
+# Do NOT ignore the main application.properties if it contains standard defaults.
+# DO ignore local/secret files:
+.env
+*.local
+src/main/resources/application-local.properties
+src/main/resources/application.properties.example
