@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,6 +29,9 @@ public class DVD {
     @NotNull
     @Enumerated(EnumType.STRING)
     private DVDStatus dvdStatus = DVDStatus.AVAILABLE;
+
+    @OneToMany(mappedBy = "dvd") //no cascade - rental records retained
+    private List<Rental> rentals = new ArrayList<>();
 
     public DVD(){
 

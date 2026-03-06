@@ -2,6 +2,8 @@ package com.rob.bertbuster.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,10 +23,12 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    @OneToMany(mappedBy = "user") // no cascade.
+    private List<Rental> rentals = new ArrayList<>();
+
     public User(){
 
     }
-
 
     public User(String username, String password, String role) {
         this.username = username;
@@ -63,4 +67,11 @@ public class User {
         this.role = role;
     }
 
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
 }
