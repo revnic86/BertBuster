@@ -82,6 +82,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <!-- Jackson for JSON handling in tests -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
