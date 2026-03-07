@@ -22,8 +22,4 @@ public class RentalMapperImpl implements RentalMapper {
         return rentalResponseDto;
     }
 
-    @Override
-    public Rental rentalFromDto(RentalResponseDto rentalResponseDto) {
-        return null;
-    }
 }

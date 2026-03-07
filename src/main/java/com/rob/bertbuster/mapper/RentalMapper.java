@@ -6,6 +6,6 @@ import com.rob.bertbuster.domain.entity.dto.RentalResponseDto;
 public interface RentalMapper {
 
     RentalResponseDto rentalToDto(Rental rental);
-    Rental rentalFromDto(RentalResponseDto rentalResponseDto);
+
 
 }
