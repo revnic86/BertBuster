@@ -3,6 +3,7 @@ package com.rob.bertbuster.service.impl;
 import com.rob.bertbuster.domain.entity.User;
 import com.rob.bertbuster.domain.entity.dto.RegisterUserDto;
 import com.rob.bertbuster.domain.entity.dto.UserRegistrationResponseDto;
+import com.rob.bertbuster.exception.DuplicateUserException;
 import com.rob.bertbuster.mapper.UserMapper;
 import com.rob.bertbuster.repository.UserRepository;
 import com.rob.bertbuster.service.UserService;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
 
         if (userRepository.findByUsername(registerUserDto.username()).isPresent()){ //basic check to see if the user already exists.
-            throw new RuntimeException("Username already exists");
+            throw new DuplicateUserException("Username already exists");
 
         }
 

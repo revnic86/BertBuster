@@ -2,6 +2,10 @@ package com.rob.bertbuster.service.impl;
 
 import com.rob.bertbuster.domain.entity.*;
 import com.rob.bertbuster.domain.entity.dto.RentalResponseDto;
+import com.rob.bertbuster.exception.DVDNotAvailable;
+import com.rob.bertbuster.exception.MovieNotFoundException;
+import com.rob.bertbuster.exception.RentalNotFoundException;
+import com.rob.bertbuster.exception.UserNotFoundException;
 import com.rob.bertbuster.mapper.RentalMapper;
 import com.rob.bertbuster.repository.DVDRepository;
 import com.rob.bertbuster.repository.MovieRepository;
@@ -44,28 +48,29 @@ public class RentalServiceImpl implements RentalService {
         }
 
         User user = userRepository.findByUsername(currentUsername) //select statement populates user object
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
 
 
 
-        //Check if the user has a current rental (max 1)
+        //Check if the user has a current rental (max 1) //UI does allow you to do this so this can be removed
+        /**
         boolean hasActiveRental = rentalRepository.existsByUserAndReturnedAtIsNull(user);
 
         if (hasActiveRental){
             throw new RuntimeException("You already have a rental. Return it first");
         }
-
+*/
         //Find DVD availability
 
 
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+                .orElseThrow(() -> new MovieNotFoundException(movieId));
 
         DVD dvd = dvdRepository.findFirstByMovieAndDvdStatus(movie, DVDStatus.AVAILABLE) //Select statement
-                .orElseThrow(() -> new RuntimeException("No available DVDs for this movie"));
+                .orElseThrow(() -> new DVDNotAvailable("No available DVDs for this movie"));
 
         if (dvd.getDvdStatus() != DVDStatus.AVAILABLE){
-            throw new RuntimeException("DVD is not available");
+            throw new DVDNotAvailable("DVD is not available");
         }
 
         //Create rental
@@ -95,7 +100,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public RentalResponseDto returnDVD(UUID rentalId) {
-        Rental rental = rentalRepository.findById(rentalId).orElseThrow(() -> new RuntimeException("Rental not found"));
+        Rental rental = rentalRepository.findById(rentalId).orElseThrow(() -> new RentalNotFoundException(rentalId));
 
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         if ("anonymousUser".equals(currentUsername)) {

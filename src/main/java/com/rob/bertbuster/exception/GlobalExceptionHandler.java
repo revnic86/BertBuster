@@ -27,10 +27,41 @@ public class GlobalExceptionHandler {
 
         ErrorDto errorDto = new ErrorDto(ex.getMessage());
 
-        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND); //404
 
     }
 
+    @ExceptionHandler(RentalNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleRentalNotFound(RentalNotFoundException ex){
 
+        ErrorDto errorDto = new ErrorDto(ex.getMessage());
 
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND); // 404
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleUserNotFound(UserNotFoundException ex){
+
+        ErrorDto errorDto = new ErrorDto(ex.getMessage());
+
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND); // 404
+
+    }
+
+    @ExceptionHandler(DVDNotAvailable.class)
+    public ResponseEntity<ErrorDto> handleDVDNotAvailable(DVDNotAvailable ex){
+
+        ErrorDto errorDto = new ErrorDto((ex.getMessage()));
+
+        return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT); // 409 conflict DVD = 0
+
+    }
+
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<ErrorDto> handleDuplicateUserCreation(DuplicateUserException ex){
+
+        ErrorDto errorDto = new ErrorDto((ex.getMessage()));
+
+        return new ResponseEntity<>(errorDto, HttpStatus.CONFLICT); // 409 conflict duplicate users
+    }
 }

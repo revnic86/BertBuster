@@ -3,6 +3,7 @@ package com.rob.bertbuster.controller;
 import com.rob.bertbuster.domain.entity.Rental;
 import com.rob.bertbuster.domain.entity.User;
 import com.rob.bertbuster.domain.entity.dto.RentalResponseDto;
+import com.rob.bertbuster.exception.UserNotFoundException;
 import com.rob.bertbuster.mapper.RentalMapper;
 import com.rob.bertbuster.repository.RentalRepository;
 import com.rob.bertbuster.repository.UserRepository;
@@ -54,7 +55,7 @@ public class RentalController {
         }
 
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         List<Rental> active = rentalRepository.findByUserAndReturnedAtIsNull(user); //sql that checks the return is NULL therefore item is rented
 
