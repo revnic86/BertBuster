@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable()) // still fine for pure API + dev
+                .csrf(csrf -> csrf.disable()) // need to enable
 
 
                 .logout(logout -> logout

@@ -45,6 +45,7 @@ public class RentalController {
         return ResponseEntity.ok(response);
     }
 
+    //this is needed for UI to check if a user that logs in currently has anything rented or not
     @GetMapping("/rentals/my-active")
     public ResponseEntity<List<RentalResponseDto>> getMyActiveRentals() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -55,7 +56,8 @@ public class RentalController {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Rental> active = rentalRepository.findByUserAndReturnedAtIsNull(user);
+        List<Rental> active = rentalRepository.findByUserAndReturnedAtIsNull(user); //sql that checks the return is NULL therefore item is rented
+
         List<RentalResponseDto> dtos = active.stream()
                 .map(rentalMapper::rentalToDto)
                 .toList();

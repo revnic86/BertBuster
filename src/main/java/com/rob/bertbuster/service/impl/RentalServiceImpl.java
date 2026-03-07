@@ -77,7 +77,6 @@ public class RentalServiceImpl implements RentalService {
         rental.setUsernameAtRental(user.getUsername());
 
 
-
         //Update DVD Status
         dvd.setDvdStatus(DVDStatus.BORROWED);
 
@@ -105,27 +104,12 @@ public class RentalServiceImpl implements RentalService {
             );
         }
 
-/* UI will not show return rental buttons on other rentals.
-        //Check to see what they are returning
-        //check to see what they are returning
-        if (!rental.getUser().getUsername().equals(currentUsername)) {
-            throw new RuntimeException("You can only return your own rentals");
-        }
-
-        if (rental.getReturnedAt() != null){
-            throw new RuntimeException("This rental is already returned");
-        }
-*/
-
         //Mark as returned
         rental.setReturnedAt(LocalDate.now());
-
-
 
         //Free the DVD
         DVD dvd = rental.getDvd();
         dvd.setDvdStatus(DVDStatus.AVAILABLE);
-
 
         rentalRepository.save(rental);
         dvdRepository.save(dvd);
