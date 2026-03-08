@@ -18,7 +18,7 @@ public class Rental {
 
 
     @ManyToOne
-    @JoinColumn(name = "dvd_id")
+    @JoinColumn(name = "dvd_id", nullable = true)
     private DVD dvd;
 
     private LocalDate borrowedAt;
