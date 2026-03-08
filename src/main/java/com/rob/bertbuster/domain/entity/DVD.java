@@ -65,6 +65,14 @@ public class DVD {
         this.movie = movie;
     }
 
+    public List<Rental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(List<Rental> rentals) {
+        this.rentals = rentals;
+    }
+
     public DVDStatus getDvdStatus() {
         return dvdStatus;
     }

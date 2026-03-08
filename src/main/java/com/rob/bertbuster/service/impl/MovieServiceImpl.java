@@ -2,6 +2,7 @@ package com.rob.bertbuster.service.impl;
 
 import com.rob.bertbuster.domain.entity.DVD;
 import com.rob.bertbuster.domain.entity.Movie;
+import com.rob.bertbuster.domain.entity.Rental;
 import com.rob.bertbuster.domain.entity.dto.AddMovieDto;
 import com.rob.bertbuster.domain.entity.dto.EditMovieDto;
 import com.rob.bertbuster.domain.entity.dto.MovieResponseDto;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,7 +44,6 @@ public class MovieServiceImpl implements MovieService {
             movie.addDvd(dvd);    //this is needed otherwise the foreign key on DVDs table will be null - syncs both tables
         }
 
-
         movieRepository.save(movie);
 
         MovieResponseDto movieResponseDto = movieMapper.movieToDto(movie);
@@ -54,8 +56,22 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void removeMovieById(UUID uuid) {
 
-        if(!movieRepository.existsById(uuid)){
-            throw new MovieNotFoundException(uuid);
+        /*
+        The following block fixes the bug that occurs when a movie can no longer be deleted after it has been rented.
+
+         */
+        Movie movie = movieRepository.findById(uuid)
+                .orElseThrow(() -> new MovieNotFoundException(uuid));
+
+        for (DVD dvd : movie.getCopies()) {  //ehnanced forloop that goes through each dvd copy
+
+            List<Rental> rentals = new ArrayList<>(dvd.getRentals());
+
+             for (Rental rental : rentals) { //enhanced forloop that goes through each rental record, sets the dvd to null fix foreign key issue
+                     rental.setDvd(null);
+              }
+
+
         }
 
         movieRepository.deleteById(uuid);
