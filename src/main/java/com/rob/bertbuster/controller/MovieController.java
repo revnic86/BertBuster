@@ -30,7 +30,7 @@ public class MovieController {
 
     }
 
-    @PostMapping("/addmovie")
+    @PostMapping("/movie")
     public ResponseEntity<MovieResponseDto> addNewMovie(@Valid @RequestBody AddMovieDto addMovieDto){
         MovieResponseDto movieResponseDto = movieService.addMovie(addMovieDto);
 

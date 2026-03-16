@@ -1,5 +1,6 @@
 package com.rob.bertbuster.config;
 
+import com.rob.bertbuster.constant.AppConstants;
 import com.rob.bertbuster.domain.entity.User;
 import com.rob.bertbuster.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -19,14 +20,14 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername(AppConstants.ADMIN_USER).isEmpty()) {
             User admin = new User(
-                    "admin",
-                    passwordEncoder.encode("admin123"),  // change this!
-                    "ADMIN"
+                    AppConstants.ADMIN_USER,
+                    passwordEncoder.encode(AppConstants.ADMIN_PASS),
+                    AppConstants.ADMIN_ROLE
             );
             userRepository.save(admin);
-            System.out.println("admin user created");
+            System.out.println(AppConstants.ADMIN_SUCCESS);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.rob.bertbuster.domain.entity;
 
+import com.rob.bertbuster.constant.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,11 +18,11 @@ public class DVD {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @NotBlank(message = "DVD barcode cannot be blank")
+    @NotBlank(message = AppConstants.NO_DVD_BARCODE)
     @Column(unique = true)
     private String barcode; // representation of the DVD as a string. Each DVD should have a unique barcode
 
-    @NotNull(message = "DVD must be associated with a movie")
+    @NotNull(message = AppConstants.NO_DVD_MOVIE)
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;

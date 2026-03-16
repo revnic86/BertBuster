@@ -1,5 +1,6 @@
 package com.rob.bertbuster.domain.entity.dto;
 
+import com.rob.bertbuster.constant.AppConstants;
 import com.rob.bertbuster.domain.entity.MovieGenre;
 import com.rob.bertbuster.domain.entity.MovieRating;
 import jakarta.validation.constraints.*;
@@ -9,11 +10,11 @@ import jakarta.validation.constraints.*;
  */
 public record EditMovieDto(
 
-        @NotBlank(message = "You must include a title")
-        @Size(min = 1, max = 100, message="Title must be between 1 and 100 characters")
+        @NotBlank(message = AppConstants.NO_TITLE)
+        @Size(min = 1, max = 250, message= AppConstants.INVALID_TITLE_SIZE)
         String title,
 
-        @NotNull(message = "You must include a release year")
+        @NotNull(message = AppConstants.NO_RELEASE_YEAR)
         @Min(1888)
         @Max(2026)
         Integer releaseYear,
@@ -24,7 +25,7 @@ public record EditMovieDto(
         @NotNull
         MovieRating movieRating,
 
-        @NotNull(message = "You must include a runtime")
+        @NotNull(message = AppConstants.NO_RUNTIME)
         @Min(1)
         @Max(300)
         Integer runtime)
