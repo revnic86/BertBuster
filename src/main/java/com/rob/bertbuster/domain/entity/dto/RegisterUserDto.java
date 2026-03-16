@@ -8,7 +8,7 @@ public record RegisterUserDto(
         String username,
 
         @NotBlank
-        @Size(min=5)
+        @Size(min=5) //demo only
         String password,
         String role
 

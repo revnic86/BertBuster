@@ -1,5 +1,6 @@
 package com.rob.bertbuster.domain.entity;
 
+import com.rob.bertbuster.constant.AppConstants;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -16,8 +17,8 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @NotBlank(message = "You must enter a title")
-    @Size(min = 1, max = 100, message="Title must be between 1 and 100 characters")
+    @NotBlank(message = AppConstants.NO_TITLE)
+    @Size(min = 1, max = 250, message= AppConstants.INVALID_TITLE_SIZE)
     private String title;
 
     @NotNull
@@ -28,12 +29,12 @@ public class Movie {
     @Enumerated(EnumType.STRING)
     private MovieRating movieRating;
 
-    @NotNull(message = "You must enter a year")
+    @NotNull(message = AppConstants.NO_RELEASE_YEAR)
     @Min(1888)
     @Max(2026)
     private Integer releaseYear;
 
-    @NotNull(message = "You must enter a runtime")
+    @NotNull(message = AppConstants.NO_RUNTIME)
     @Min(1)
     @Max(300)
     private Integer runtime;
