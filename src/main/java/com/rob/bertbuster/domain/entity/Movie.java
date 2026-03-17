@@ -42,7 +42,7 @@ public class Movie {
     @Version
     private Integer version;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch =FetchType.EAGER)  //need EAGER for Claude to work
     private List<DVD> copies = new ArrayList<>();
 
 
