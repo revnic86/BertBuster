@@ -11,7 +11,7 @@ import com.rob.bertbuster.mapper.MovieMapper;
 import com.rob.bertbuster.repository.MovieRepository;
 import com.rob.bertbuster.service.MovieService;
 import jakarta.transaction.Transactional;
-import org.springframework.ai.tool.annotation.Tool;
+import org.springaicommunity.mcp.annotation.McpTool;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -127,7 +127,7 @@ public class MovieServiceImpl implements MovieService {
 
 
     //pageable not working with AI
-    @Tool(description = "Retrieve all movies in the database")
+    @McpTool(description = "Retrieve all movies in the database")
     public List<MovieResponseDto> getAllMoviesForAi() {
                return movieRepository.findAll().stream()
                 .map(movieMapper::movieToDto)
